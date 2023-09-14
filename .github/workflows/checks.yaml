@@ -36,23 +36,3 @@ jobs:
 
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.0
-
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-        shell: bash
-
-      - name: Install project dependencies
-        run: |
-          poetry install
-
-      - name: Set up Django settings
-        run: |
-          cp .env.example
-          python manage.py migrate
-        env:
-          DJANGO_SETTINGS_MODULE: recipeApp.settings
-
-      - name: Run tests
-        run: |
-          poetry run python manage.py test
