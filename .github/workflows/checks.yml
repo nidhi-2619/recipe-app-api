@@ -48,7 +48,7 @@ jobs:
 
       - name: Set up Django settings
         run: |
-          cp .env.example 
+          cp .env.example
           python manage.py migrate
         env:
           DJANGO_SETTINGS_MODULE: recipeApp.settings
