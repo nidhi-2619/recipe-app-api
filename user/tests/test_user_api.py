@@ -78,12 +78,12 @@ class PublicUserApiTests(TestCase):
             'email': user_details['email'],
             'password': user_details['password'],
         }
-        res = self.client.post(TOKEN_URL, payload=payload)
+        res = self.client.post(TOKEN_URL, payload)
 
         self.assertIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
-    def test_Create_token_bad_credentials(self):
+    def test_create_token_bad_credentials(self):
         """Test returns error if credentials invalid."""
         create_user(email='test@example.com', password='goodpass')
 
@@ -100,7 +100,7 @@ class PublicUserApiTests(TestCase):
         """Test posting a blank password returns an error."""
         payload = {
             'email': 'test@example.com',
-            'password': ''
+            'password': '',
         }
         res = self.client.post(TOKEN_URL, payload)
 
