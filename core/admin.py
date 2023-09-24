@@ -46,7 +46,27 @@ class UserAdmin(BaseUserAdmin):
     ]
 
 
+class RecipeAdmin(admin.ModelAdmin):
+    """Customising recipe admin  to display other fields"""
+    list_display = ('title', 'price', 'time_minutes')
+
+    def active(self, obj):
+        return obj.is_active == 1
+
+    active.boolean = True
+
+
+class IngredientAdmin(admin.ModelAdmin):
+    """Customising ingredient admin to display other fields."""
+    list_display = ('name', 'user')
+
+    def active(self, obj):
+        return obj.is_active == 1
+
+    active.boolean = True
+
+
 admin.site.register(models.User, UserAdmin)
-admin.site.register(models.Recipe)
+admin.site.register(models.Recipe, RecipeAdmin)
 admin.site.register(models.Tag)
-admin.site.register(models.Ingredient)
+admin.site.register(models.Ingredient, IngredientAdmin)
