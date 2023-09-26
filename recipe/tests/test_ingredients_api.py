@@ -12,7 +12,6 @@ from core.models import Ingredient
 
 from recipe.serializers import IngredientSerializer
 
-
 INGREDIENTS_URL = reverse('recipe:ingredient-list')
 
 
@@ -83,3 +82,13 @@ class PrivateIngredientApiTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         ingredient.refresh_from_db()
         self.assertEqual(ingredient.name, payload['name'])
+
+    def test_delete_ingredient(self):
+        """Test deleting an ingredient."""
+        ingredient = Ingredient.objects.create(user=self.user, name='Cilantro')
+
+        url = detail_url(ingredient.id)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Ingredient.objects.count(), 0)
